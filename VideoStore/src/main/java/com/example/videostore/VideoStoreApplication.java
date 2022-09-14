@@ -1,0 +1,36 @@
+package com.example.videostore;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import static com.example.videostore.Customer.*;
+import static com.example.videostore.Item.*;
+import static com.example.videostore.SaveData.*;
+
+public class VideoStoreApplication extends Application {
+    @Override
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(VideoStoreApplication.class.getResource("login-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) throws IOException {
+        ArrayList<Item> list_items = readItem("VideoStore/doc/items.txt");
+        ArrayList<Customer> test = readCustomers("VideoStore/doc/customers.txt", list_items);
+
+        saveItemData(list_items);
+        saveCustomerData(test);
+
+        launch();
+    }
+}
