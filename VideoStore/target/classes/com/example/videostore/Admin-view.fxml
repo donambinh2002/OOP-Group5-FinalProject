@@ -25,9 +25,10 @@
             <TableColumn fx:id="genre" prefWidth="75.0" text="Genre" />
         </columns>
       </TableView>
-      <Button fx:id="edit" layoutX="451.0" layoutY="338.0" mnemonicParsing="false" text="EDIT" />
-      <Button fx:id="restock" layoutX="502.0" layoutY="338.0" mnemonicParsing="false" text="RESTOCK" />
+      <Button fx:id="edit" layoutX="451.0" layoutY="338.0" mnemonicParsing="false" onAction="#editItem" text="EDIT" />
+      <Button fx:id="restock" layoutX="502.0" layoutY="338.0" mnemonicParsing="false" onAction="#restock" text="RESTOCK" />
       <Button fx:id="addnewitem" layoutX="335.0" layoutY="338.0" mnemonicParsing="false" onAction="#addItem" text="ADD" />
       <Button fx:id="delete" layoutX="387.0" layoutY="338.0" mnemonicParsing="false" onAction="#deleteItem" text="DELETE" />
+      <Button layoutX="42.0" layoutY="338.0" mnemonicParsing="false" onAction="#switchCustomer" text="Switch to customers" />
    </children>
 </AnchorPane>

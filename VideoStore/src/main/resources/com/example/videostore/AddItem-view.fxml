@@ -45,7 +45,7 @@
             <ComboBox fx:id="loanType" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ComboBox fx:id="rentType" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button fx:id="confirm" mnemonicParsing="false" onAction="#confirm" text="Confirm" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-            <Button fx:id="cancel" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+            <Button fx:id="cancel" mnemonicParsing="false" onAction="#closeButtonAction" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
             <Label fx:id="idCheck" GridPane.columnIndex="2" />
             <Label fx:id="titleCheck" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label fx:id="rentTypeCheck" GridPane.columnIndex="2" GridPane.rowIndex="2" />
