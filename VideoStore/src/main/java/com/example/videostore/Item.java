@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Item {
     private String ID;
@@ -13,6 +14,8 @@ public class Item {
     private int No_of_copies;
     private float Rent_fee;
     private String Genre; //If item is a DVD or video record
+
+
 
     public String getID() {
         return ID;
@@ -122,15 +125,15 @@ public class Item {
     public String printITextfile(){
         String text;
         if(this.getGenre() == null) {
-            text = this.getID() + "," + this.getTitle() + "," + this.getRent_type() + "," + this.getLoan_type() + "," + this.getNo_of_copies() + "," + this.getRent_fee() ;
+            text = this.getID().trim() + "," + this.getTitle().trim() + "," + this.getRent_type().trim() + "," + this.getLoan_type().trim() + "," + this.getNo_of_copies() + "," + this.getRent_fee() ;
         }else{
-            text = this.getID() + "," + this.getTitle() + "," + this.getRent_type() + "," + this.getLoan_type() + "," + this.getNo_of_copies() + "," + this.getRent_fee() + "," + this.getGenre();
+            text = this.getID().trim() + "," + this.getTitle().trim() + "," + this.getRent_type().trim() + "," + this.getLoan_type().trim() + "," + this.getNo_of_copies() + "," + this.getRent_fee() + "," + this.getGenre().trim();
         }
         return text;
     }
 
-    public String displayOnList(){
-        String result = this.getID() + ", " +this.getTitle();
-        return result;
-    }
+
+
+
+
 }

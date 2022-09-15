@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.videostore.AdminViewController">
+   <children>
+      <Label layoutX="14.0" layoutY="366.0" text="Admin">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="itemTableviewA" layoutX="42.0" layoutY="40.0" prefHeight="298.0" prefWidth="524.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="title" prefWidth="75.0" text="Title" />
+            <TableColumn fx:id="rent_type" prefWidth="75.0" text="Rent Type" />
+            <TableColumn fx:id="loan_type" prefWidth="75.0" text="Loan Type" />
+            <TableColumn fx:id="copies" prefWidth="75.0" text="No. Copies" />
+            <TableColumn fx:id="rent_fee" prefWidth="75.0" text="Rent Fee" />
+            <TableColumn fx:id="genre" prefWidth="75.0" text="Genre" />
+        </columns>
+      </TableView>
+      <Button fx:id="edit" layoutX="451.0" layoutY="338.0" mnemonicParsing="false" text="EDIT" />
+      <Button fx:id="restock" layoutX="502.0" layoutY="338.0" mnemonicParsing="false" text="RESTOCK" />
+      <Button fx:id="addnewitem" layoutX="399.0" layoutY="338.0" mnemonicParsing="false" onAction="#addItem" text="ADD" />
+   </children>
+</AnchorPane>

@@ -59,7 +59,7 @@ public class AddRentalPopupController implements Initializable {
 
     static ArrayList<Item> itemslist;
 
-    public ObservableList<Item> getItems()
+    private ObservableList<Item> getItems()
     {
         ObservableList<Item> item = FXCollections.observableArrayList();
         for(Item i:itemslist) {
@@ -70,7 +70,7 @@ public class AddRentalPopupController implements Initializable {
     }
 
     @FXML
-    public void refreshItem(){
+    private void refreshItem(){
         itemid.setCellValueFactory(new PropertyValueFactory<Item, String>("ID"));
         itemTitle.setCellValueFactory(new PropertyValueFactory<Item, String>("Title"));
         itemRentType.setCellValueFactory(new PropertyValueFactory<Item, String>("Rent_type"));
