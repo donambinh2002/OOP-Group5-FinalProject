@@ -16,7 +16,7 @@ public class Customer {
     private String Customer_type;
     private String Username;
     private String Password;
-    private HashSet<Item> Rent_items = new HashSet<>();
+    private ArrayList<Item> Rent_items = new ArrayList<>();
 
     public String getID() {
         return ID;
@@ -82,11 +82,11 @@ public class Customer {
         Password = password;
     }
 
-    public HashSet<Item> getRent_items() {
+    public ArrayList<Item> getRent_items() {
         return Rent_items;
     }
 
-    public void setRent_items(HashSet<Item> rent_items) {
+    public void setRent_items(ArrayList<Item> rent_items) {
         Rent_items = rent_items;
     }
 

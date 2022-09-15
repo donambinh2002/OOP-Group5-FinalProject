@@ -19,7 +19,7 @@ public class VideoStoreApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(VideoStoreApplication.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        stage.setTitle("Hello!");
+        stage.setTitle("Genie's Video Store");
         stage.setScene(scene);
         stage.show();
     }
@@ -30,6 +30,7 @@ public class VideoStoreApplication extends Application {
 
         saveItemData(list_items);
         saveCustomerData(test);
+
 
         launch();
     }

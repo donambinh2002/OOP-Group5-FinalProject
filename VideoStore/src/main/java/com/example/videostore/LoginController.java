@@ -73,6 +73,20 @@ public class LoginController implements Initializable {
                     alert.setText("login successful");
                 }
             }
+            if(username.getText().contentEquals("admin") && password.getText().contentEquals("password")){
+                FXMLLoader loader2 = new FXMLLoader();
+                loader2.setLocation(getClass().getResource("Admin-view.fxml"));
+                Parent adminview = loader2.load();
+
+                Scene adminviewscene = new Scene(adminview);
+                AdminViewController adminviewcontroller = loader2.getController();
+                adminviewcontroller.setItemdataA(thing);
+                adminviewcontroller.setCustomerdataA(check);
+
+                Stage window2 = (Stage)((Node)event.getSource()).getScene().getWindow();
+                window2.setScene(adminviewscene);
+                window2.show();
+            }
         }
         if(!userExist && !username.getText().isEmpty()){
             alert.setText("User does not exist");
