@@ -193,6 +193,15 @@ public class EditItemAdminController implements Initializable {
                     itemslistA.set(itr, i);
                 }
             }
+
+            for(int itr = 0; itr < customersA.size(); itr++){
+                for(Item item:customersA.get(itr).getRent_items()){
+                    if(item.equals(editItem)){
+                       customersA.get(itr).getRent_items().set(customersA.get(itr).getRent_items().indexOf(item), i);
+                    }
+
+                }
+            }
             closeButtonAction();
         }
 
