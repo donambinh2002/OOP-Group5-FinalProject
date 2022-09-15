@@ -1,12 +1,21 @@
 package com.example.videostore;
 
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -62,11 +71,12 @@ public class AddItemAdminController implements Initializable {
 
     Pattern idpattern = Pattern.compile("^[I][0-9][0-9][0-9][-][0-9][0-9][0-9][0-9]$");
 
-    Pattern rentTypepattern = Pattern.compile("^[Record|DVD|Game]$");
 
-    Pattern loanTypepattern = Pattern.compile("^[2-day|1-week]$");
-
-    Pattern genrepattern = Pattern.compile("^[Action|Horror|Drama|Comedy]$");
+//    Pattern rentTypepattern = Pattern.compile("^[Record|DVD|Game]$");
+//
+//    Pattern loanTypepattern = Pattern.compile("^[2-day|1-week]$");
+//
+//    Pattern genrepattern = Pattern.compile("^[Action|Horror|Drama|Comedy]$");
     public static void setItemdataA(ArrayList<Item> item){
         itemslistA = item;
     }
@@ -75,8 +85,8 @@ public class AddItemAdminController implements Initializable {
         customersA = customer;
     }
 
-    public void confirm(){
-        Item i = null;
+    public void confirm(ActionEvent event) throws IOException {
+        Item i = new Item();
         boolean copiesValid = false;
         boolean feeValid = false;
         boolean idValid = false;
@@ -86,33 +96,33 @@ public class AddItemAdminController implements Initializable {
 
         //Check id format
         if(checkData(id.getText(), idpattern)){
+            idCheck.setText("");
             idValid = true;
         }else {
             idCheck.setText("Invalid id");
         }
         //Check title
         if(!title.getText().trim().isEmpty()) {
+            titleCheck.setText("");
             titleValid = true;
         }else {
             titleCheck.setText("Title cannot be empty");
         }
         //Check rent type
         if(!(rentType.getValue() == null)) {
-            if (checkData(rentType.getValue(), rentTypepattern)) {
-                rentTypeValid = true;
-            } else {
-                rentTypeCheck.setText("Invalid Rent Type");
-            }
+
+            rentTypeCheck.setText("");
+            rentTypeValid = true;
+
         }else {
             rentTypeCheck.setText("Rent Type cannot be empty");
         }
         //Check loan type
         if(!(loanType.getValue() == null)) {
-            if (checkData(loanType.getValue(), loanTypepattern)) {
-                loanTypeValid = true;
-            } else {
-                loanTypeCheck.setText("Invalid Loan Type");
-            }
+
+            loanTypeCheck.setText("");
+            loanTypeValid = true;
+
         }else {
             loanTypeCheck.setText("Loan Type cannot be empty");
         }
@@ -125,7 +135,8 @@ public class AddItemAdminController implements Initializable {
         }
         if(copiesValid){
             if(Integer.parseInt(copies.getText()) > 0){
-                i.setNo_of_copies(Integer.parseInt(copies.getText()));
+                copiesCheck.setText("");
+                copiesValid = true;
             }else {
                 copiesValid = false;
                 copiesCheck.setText("Copies must be greater than 0");
@@ -140,7 +151,8 @@ public class AddItemAdminController implements Initializable {
         }
         if(feeValid){
             if(Float.parseFloat(fee.getText()) > 0){
-                i.setRent_fee(Float.parseFloat(fee.getText()));
+                feeCheck.setText("");
+                feeValid = true;
             }else {
                 feeValid = false;
                 feeCheck.setText("Fee must be greater than 0");
@@ -148,7 +160,7 @@ public class AddItemAdminController implements Initializable {
         }
         //Check if id is unique
         for(Item item:itemslistA){
-            if(item.getID().contentEquals(id.getText())){
+            if(id.getText().contains(item.getID().substring(0,4))){
                 idValid = false;
                 idCheck.setText("ID already exist");
             }
@@ -171,6 +183,7 @@ public class AddItemAdminController implements Initializable {
             i.printItem();
             itemslistA.add(i);
         }
+        closeButtonAction();
 
     }
 
@@ -184,6 +197,13 @@ public class AddItemAdminController implements Initializable {
         }
     }
 
+    @FXML
+    private void closeButtonAction(){
+        // get a handle to the stage
+        Stage stage = (Stage) confirm.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+    }
 
 
 

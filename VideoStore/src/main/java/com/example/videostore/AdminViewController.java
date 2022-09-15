@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Popup;
 
 import java.io.IOException;
@@ -16,6 +17,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static com.example.videostore.SaveData.saveCustomerData;
+import static com.example.videostore.SaveData.saveItemData;
 
 public class AdminViewController implements Initializable {
 
@@ -45,7 +49,8 @@ public class AdminViewController implements Initializable {
 
     @FXML
     private Button restock;
-
+    @FXML
+    private Button delete;
     @FXML
     private TableColumn<Item, String> title;
 
@@ -87,7 +92,8 @@ public class AdminViewController implements Initializable {
         customersA = customer;
     }
 
-    public void addItem() throws IOException {
+    @FXML
+    private void addItem() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("AddItem-view.fxml"));
         DialogPane addItem = fxmlLoader.load();
@@ -101,7 +107,49 @@ public class AdminViewController implements Initializable {
         dialog.setTitle("Add item");
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
+        refreshItem();
+        saveItemData(itemslistA);
     }
+
+//    @FXML
+//    private void editItem() throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//        fxmlLoader.setLocation(getClass().getResource("EditItem-view.fxml"));
+//        DialogPane addItem = fxmlLoader.load();
+//
+//        EditItemAdminController editItemController = fxmlLoader.getController();
+//        editItemController.setItemdataA(itemslistA);
+//        editItemController.setCustomerdataA(customersA);
+//        editItemController.receiveItemToEdit(itemTableviewA.getSelectionModel().getSelectedItem());
+//
+//        Dialog<ButtonType> dialog = new Dialog<>();
+//        dialog.setDialogPane(addItem);
+//        dialog.setTitle("Edit item");
+//
+//        Optional<ButtonType> clickedButton = dialog.showAndWait();
+//        refreshItem();
+//        saveItemData(itemslistA);
+//    }
+
+    @FXML
+    private void deleteItem() throws IOException {
+        Item selectItem = itemTableviewA.getSelectionModel().getSelectedItem();
+
+        for (int i =0; i < itemslistA.size(); i++){
+            if(itemslistA.get(i).equals(selectItem)){
+                itemslistA.remove(i);
+            }
+        }
+
+        itemTableviewA.getItems().removeAll(
+                itemTableviewA.getSelectionModel().getSelectedItems()
+        );
+
+
+        saveItemData(itemslistA);
+    }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
