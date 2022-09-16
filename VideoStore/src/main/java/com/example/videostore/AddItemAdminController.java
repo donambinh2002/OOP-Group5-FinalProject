@@ -181,7 +181,7 @@ public class AddItemAdminController implements Initializable {
             }else {
                 i.setGenre(genre.getValue());
             }
-            i.printItem();
+//            i.printItem();
             itemslistA.add(i);
             closeButtonAction();
         }

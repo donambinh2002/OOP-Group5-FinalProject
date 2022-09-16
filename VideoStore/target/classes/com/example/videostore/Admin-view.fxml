@@ -34,5 +34,6 @@
       <Button layoutX="42.0" layoutY="338.0" mnemonicParsing="false" onAction="#switchCustomer" text="Switch to customers" />
       <ComboBox fx:id="searchBox" layoutX="42.0" layoutY="14.0" prefHeight="26.0" prefWidth="171.0" promptText="Choose search method" />
       <TextField fx:id="searchField" layoutX="227.0" layoutY="14.0" prefHeight="26.0" prefWidth="338.0" />
+      <Button layoutX="186.0" layoutY="338.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
    </children>
 </AnchorPane>

@@ -108,10 +108,10 @@ public class Item {
             }
             itemlist.add(it);
         }
-        for(int i = 0; i < itemlist.size(); i++){
-            itemlist.get(i).printItem();
-
-        }
+//        for(int i = 0; i < itemlist.size(); i++){
+//            itemlist.get(i).printItem();
+//
+//        }
         return itemlist;
     }
 

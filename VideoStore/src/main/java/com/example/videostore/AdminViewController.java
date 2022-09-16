@@ -188,6 +188,20 @@ public class AdminViewController implements Initializable {
         window2.show();
     }
 
+    @FXML
+    private void logout(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("login-view.fxml"));
+        Parent LogoutView = loader.load();
+
+        Scene logout = new Scene(LogoutView);
+
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(logout);
+        window.show();
+    }
+
 
 
 

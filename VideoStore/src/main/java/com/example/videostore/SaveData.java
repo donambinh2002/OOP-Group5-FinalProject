@@ -9,7 +9,7 @@ import static com.example.videostore.Customer.*;
 
 public class SaveData {
     public static void saveCustomerData(ArrayList<Customer> customers) throws IOException {
-        File file = new File("customertest.txt");
+        File file = new File("VideoStore/doc/customers.txt");
         FileWriter fw = new FileWriter(file);
         PrintWriter pw = new PrintWriter(fw);
 
@@ -24,7 +24,7 @@ public class SaveData {
     }
 
     public static void saveItemData(ArrayList<Item> item) throws IOException {
-        File file = new File("itemtest.txt");
+        File file = new File("VideoStore/doc/items.txt");
         FileWriter fw = new FileWriter(file);
         PrintWriter pw = new PrintWriter(fw);
 

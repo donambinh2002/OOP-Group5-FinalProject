@@ -167,12 +167,18 @@ public class EditItemAdminController implements Initializable {
             }
         }
         //Check if id is unique
-        for(Item item:itemslistA){
-            if(id.getText().contains(item.getID().substring(0,4))){
-                idValid = false;
-                idCheck.setText("ID already exist");
+        if(id.getText().contentEquals(editItem.getID())){
+            idValid = true;
+        }else {
+            for (Item item : itemslistA) {
+                if (id.getText().contains(item.getID().substring(0, 4))) {
+                    idValid = false;
+                    idCheck.setText("ID already exist");
+                }
             }
         }
+
+
 
 
 
