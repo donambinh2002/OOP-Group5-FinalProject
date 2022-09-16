@@ -3,6 +3,7 @@ package com.example.videostore;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,6 +58,10 @@ public class AdminViewController implements Initializable {
     private Button delete;
     @FXML
     private TableColumn<Item, String> title;
+    @FXML
+    private ComboBox<String> searchBox;
+    @FXML
+    private TextField searchField;
 
     static ArrayList<Item> itemslistA;
 
@@ -183,13 +188,60 @@ public class AdminViewController implements Initializable {
         window2.show();
     }
 
+    @FXML
+    private void logout(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("login-view.fxml"));
+        Parent LogoutView = loader.load();
+
+        Scene logout = new Scene(LogoutView);
+
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(logout);
+        window.show();
+    }
+
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        searchBox.getItems().addAll(
+                "ID",
+                "Title",
+                "Out of stock"
+        );
         Platform.runLater(() ->{
             refreshItem();
+            FilteredList<Item> searchItem = new FilteredList(getItems(), p -> true);//Pass the data to a filtered list
+            itemTableviewA.setItems(searchItem);//Set the table's items using the filtered list
+            itemTableviewA.getItems();
+            searchField.textProperty().addListener((obs, oldValue, newValue) -> {
+                switch (searchBox.getValue())//Switch on choiceBox value
+                {
+                    case "ID":
+                        searchItem.setPredicate(p -> p.getID().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by first name
+                        break;
+                    case "Title":
+                        searchItem.setPredicate(p -> p.getTitle().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by last name
+                        break;
+                    case "Out of stock":
+                        searchItem.setPredicate(p -> p.getNo_of_copies() == Integer.parseInt(newValue) );//filter table by last name
+                        break;
+                }
+            });
+
+            searchBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
+                    -> {//reset table and textfield when new choice is selected
+                if (newVal == "Out of stock") {
+                    searchField.setText("0");
+                    searchField.setVisible(false);
+                }else {
+                    searchField.setText("");
+                    searchField.setVisible(true);
+                }
+            });
         });
     }
 }

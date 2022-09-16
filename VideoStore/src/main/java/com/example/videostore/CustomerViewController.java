@@ -35,6 +35,10 @@ public class CustomerViewController implements Initializable {
     private TableColumn<Item, String> nameColumn;
     @FXML
     private TableView<Item> rentTable;
+    @FXML
+    private Label customerType;
+    @FXML
+    private Label currentRent;
     static ArrayList<Customer> customers;
     static ArrayList<Item> itemslist;
     static int itr;
@@ -44,10 +48,26 @@ public class CustomerViewController implements Initializable {
     String test;
 
     public void receiveRentedItem(Item renteditem) throws IOException {
-        customers.get(itr).addRental(renteditem);
-        saveCustomerData(customers);
-        saveItemData(itemslist);
-        updateRental();
+        if(customers.get(itr).checkAddRentalDuplicate(renteditem)) {
+            if (customers.get(itr).checkAddRental(renteditem)) {
+                if (customers.get(itr).checkRentLimit()) {
+                    customers.get(itr).addRental(renteditem);
+                    currentRent.setText("Currently rented: " + Integer.toString(customers.get(itr).getRentLimit()));
+                    saveCustomerData(customers);
+                    saveItemData(itemslist);
+                    updateRental();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Guest accounts can only rent up to 2 items at a time");
+                    alert.show();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Guest accounts cannot rent 2-day items");
+                alert.show();
+            }
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Cannot rent 2 of the same items");
+            alert.show();
+        }
 
     }
 
@@ -84,7 +104,10 @@ public class CustomerViewController implements Initializable {
                 rentTable.getSelectionModel().getSelectedItems()
         );
         customers.get(itr).removeRental(selectItem);
-        customers.get(itr).printRental();
+        customers.get(itr).autoPromote();
+//        customers.get(itr).printRental();
+        currentRent.setText("Currently rented: "+ Integer.toString(customers.get(itr).getRentLimit()));
+        customerType.setText(customers.get(itr).getCustomer_type());
         saveCustomerData(customers);
         saveItemData(itemslist);
 
@@ -118,12 +141,28 @@ public class CustomerViewController implements Initializable {
         window.setScene(AddRentviewscene);
         window.show();
     }
+    @FXML
+    private void logout(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("login-view.fxml"));
+        Parent LogoutView = loader.load();
+
+        Scene logout = new Scene(LogoutView);
+
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(logout);
+        window.show();
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() ->{
             idColumn.setCellValueFactory(new PropertyValueFactory<Item, String>("ID"));
             nameColumn.setCellValueFactory(new PropertyValueFactory<Item, String>("Title"));
+            customerType.setText(customers.get(itr).getCustomer_type());
+            currentRent.setText("Currently rented: "+ Integer.toString(customers.get(itr).getRentLimit()));
 
 
 

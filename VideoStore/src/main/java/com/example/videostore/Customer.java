@@ -18,6 +18,27 @@ public class Customer {
     private String Password;
     private ArrayList<Item> Rent_items = new ArrayList<>();
 
+    private int RentLimit = 0;
+
+    public int getRentLimit() {
+        return RentLimit;
+    }
+
+    public void setRentLimit(int rentLimit) {
+        RentLimit = rentLimit;
+    }
+
+
+    private int itemReturned = 0;
+
+    public int getItemReturned() {
+        return itemReturned;
+    }
+
+    public void setItemReturned(int itemReturned) {
+        this.itemReturned = itemReturned;
+    }
+
     public String getID() {
         return ID;
     }
@@ -137,9 +158,12 @@ public class Customer {
 
         }
         for(int i = 0; i < customerlist.size(); i++){
-            customerlist.get(i).printCustomer();
-            customerlist.get(i).printRental();
+            customerlist.get(i).setRentLimit(customerlist.get(i).getRent_items().size());
+//            customerlist.get(i).printCustomer();
+//            customerlist.get(i).printRental();
         }
+
+
         return customerlist;
     }
 
@@ -157,6 +181,7 @@ public class Customer {
     public boolean addRental(Item item){
         if(item.getNo_of_copies() > 0) {
             this.Rent_items.add(item);
+            this.setRentLimit(this.getRentLimit() + 1);
             item.setNo_of_copies(item.getNo_of_copies() - 1);
             return true;
         }else {
@@ -169,6 +194,8 @@ public class Customer {
         if(this.Rent_items.contains(item)){
             item.setNo_of_copies(item.getNo_of_copies() + 1);
             this.Rent_items.remove(item);
+            this.setItemReturned(this.getItemReturned() + 1);
+            this.setRentLimit(this.getRentLimit() - 1);
         }else {
             System.out.println("Customer doesn't have that item");
         }
@@ -186,6 +213,52 @@ public class Customer {
         text = this.getID() + ","+ this.getName() + ","+ this.getAddress() + "," + this.getPhone() + "," + this.getNumber_of_rentals() + "," + this.getCustomer_type() + "," + this.getUsername() + "," + this.getPassword();
         return text;
     }
+
+    public void promoteCustomer(){
+        if(this.getCustomer_type().contentEquals("Guest")){
+            this.setCustomer_type("Regular");
+        }
+        if(this.getCustomer_type().contentEquals("Regular")){
+            this.setCustomer_type("VIP");
+        }
+    }
+
+    public void autoPromote(){
+        if(this.getCustomer_type().contentEquals("Guest") && this.getItemReturned() > 3){
+            this.setCustomer_type("Regular");
+            this.setItemReturned(0);
+        }
+        if(this.getCustomer_type().contentEquals("Regular") && this.getItemReturned() > 3){
+            this.setCustomer_type("VIP");
+            this.setItemReturned(0);
+        }
+    }
+
+    public boolean checkAddRental(Item item){
+        if(this.getCustomer_type().contentEquals("Guest") && item.getLoan_type().contentEquals("2-day")) {
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public boolean checkAddRentalDuplicate(Item item){
+        if(this.getRent_items().contains(item)) {
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+
+    public boolean checkRentLimit(){
+        if(this.getCustomer_type().contentEquals("Guest") && RentLimit == 2){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
 
 
 }

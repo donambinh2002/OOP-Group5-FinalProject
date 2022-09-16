@@ -100,12 +100,18 @@ public class EditCustomerAdminController implements Initializable {
             idCheck.setText("Invalid customer ID");
         }
 
-        for(Customer customer:customersA){
-            if(id.getText().contains(customer.getID())){
-                idValid = false;
-                idCheck.setText("ID already exist");
+        if(id.getText().contentEquals(editCustomer.getID())){
+            idValid = true;
+        }else {
+            for (Customer customer : customersA) {
+                if (id.getText().contains(customer.getID())) {
+                    idValid = false;
+                    idCheck.setText("ID already exist");
+                }
             }
         }
+
+
         //Check name
         if(!(name.getText() == null)) {
             nameCheck.setText("");
@@ -130,16 +136,18 @@ public class EditCustomerAdminController implements Initializable {
             phoneCheck.setText("Invalid phone number");
         }
 
-        for(Customer customer:customersA){
-            if(phone.getText().contains(customer.getPhone())){
-                phoneValid = false;
-                phoneCheck.setText("Phone number already exist");
-            }
-        }
-        //Allow for keeping the same phone number when editing
         if(phone.getText().contentEquals(editCustomer.getPhone())){
             phoneValid = true;
+        }else {
+            for (Customer customer : customersA) {
+                if (phone.getText().contains(customer.getPhone())) {
+                    phoneValid = false;
+                    phoneCheck.setText("Phone number already exist");
+                }
+            }
         }
+
+
         //Check username
         if(!(username.getText() == null)) {
             usernameCheck.setText("");
@@ -148,6 +156,19 @@ public class EditCustomerAdminController implements Initializable {
         }else {
             usernameCheck.setText("Username cannot be empty");
         }
+
+        if(username.getText().contentEquals(editCustomer.getUsername())){
+            usernameValid = true;
+        }else {
+            for (Customer customer : customersA) {
+                if (username.getText().contains(customer.getUsername())) {
+                    usernameValid = false;
+                    usernameCheck.setText("Username already exist");
+                }
+            }
+        }
+
+
         //Check password
         if(!(password.getText() == null)) {
             passwordCheck.setText("");

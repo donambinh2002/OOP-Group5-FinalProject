@@ -19,19 +19,12 @@ public class VideoStoreApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(VideoStoreApplication.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        stage.setTitle("Genie's Video Store");
+        stage.setTitle("Genie's Video Store by Group 5");
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) throws IOException {
-        ArrayList<Item> list_items = readItem("VideoStore/doc/items.txt");
-        ArrayList<Customer> test = readCustomers("VideoStore/doc/customers.txt", list_items);
-
-        saveItemData(list_items);
-        saveCustomerData(test);
-
-
         launch();
     }
 }

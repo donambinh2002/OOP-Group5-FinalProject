@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -30,5 +32,8 @@
       <Button fx:id="addnewitem" layoutX="335.0" layoutY="338.0" mnemonicParsing="false" onAction="#addItem" text="ADD" />
       <Button fx:id="delete" layoutX="387.0" layoutY="338.0" mnemonicParsing="false" onAction="#deleteItem" text="DELETE" />
       <Button layoutX="42.0" layoutY="338.0" mnemonicParsing="false" onAction="#switchCustomer" text="Switch to customers" />
+      <ComboBox fx:id="searchBox" layoutX="42.0" layoutY="14.0" prefHeight="26.0" prefWidth="171.0" promptText="Choose search method" />
+      <TextField fx:id="searchField" layoutX="227.0" layoutY="14.0" prefHeight="26.0" prefWidth="338.0" />
+      <Button layoutX="186.0" layoutY="338.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
    </children>
 </AnchorPane>

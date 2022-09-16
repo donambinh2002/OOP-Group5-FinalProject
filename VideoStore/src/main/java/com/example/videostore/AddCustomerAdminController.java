@@ -138,6 +138,13 @@ public class AddCustomerAdminController implements Initializable {
         }else {
             usernameCheck.setText("Username cannot be empty");
         }
+
+        for(Customer customer:customersA){
+            if(username.getText().contains(customer.getUsername())){
+                usernameValid = false;
+                usernameCheck.setText("Username already exist");
+            }
+        }
         //Check password
         if(!(password.getText() == null)) {
             passwordCheck.setText("");

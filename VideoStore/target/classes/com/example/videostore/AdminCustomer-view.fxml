@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -26,9 +28,12 @@
         </columns>
       </TableView>
       <Button fx:id="edit" layoutX="451.0" layoutY="338.0" mnemonicParsing="false" onAction="#editCustomer" text="EDIT" />
-      <Button fx:id="promote" layoutX="502.0" layoutY="338.0" mnemonicParsing="false" text="PROMOTE" />
+      <Button fx:id="promote" layoutX="502.0" layoutY="338.0" mnemonicParsing="false" onAction="#promoteCustomer" text="PROMOTE" />
       <Button fx:id="addnewcustomer" layoutX="335.0" layoutY="338.0" mnemonicParsing="false" onAction="#addCustomer" text="ADD" />
       <Button fx:id="delete" layoutX="387.0" layoutY="338.0" mnemonicParsing="false" onAction="#deleteCustomer" text="DELETE" />
       <Button layoutX="21.0" layoutY="338.0" mnemonicParsing="false" onAction="#switchItem" text="Switch to items" />
+      <ComboBox fx:id="searchBox" layoutX="21.0" layoutY="14.0" prefHeight="26.0" prefWidth="168.0" promptText="Choose search method" AnchorPane.bottomAnchor="362.0" />
+      <TextField fx:id="searchField" layoutX="194.0" layoutY="14.0" prefHeight="26.0" prefWidth="386.0" AnchorPane.bottomAnchor="362.0" />
+      <ComboBox fx:id="customerGroup" layoutX="194.0" layoutY="12.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
