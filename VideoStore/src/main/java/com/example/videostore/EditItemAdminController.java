@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-public class AddItemAdminController implements Initializable {
+public class EditItemAdminController implements Initializable {
 
     @FXML
     private TextField copies;
@@ -69,6 +69,8 @@ public class AddItemAdminController implements Initializable {
     static ArrayList<Item> itemslistA;
     static ArrayList<Customer> customersA;
 
+    private Item editItem = new Item();
+
     Pattern idpattern = Pattern.compile("^[I][0-9][0-9][0-9][-][0-9][0-9][0-9][0-9]$");
 
 
@@ -76,6 +78,11 @@ public class AddItemAdminController implements Initializable {
 
     Pattern loanTypepattern = Pattern.compile("^[2-day|1-week]$");
 
+
+
+    public void receiveItemToEdit(Item item){
+        editItem = item;
+    }
     public static void setItemdataA(ArrayList<Item> item){
         itemslistA = item;
     }
@@ -99,7 +106,7 @@ public class AddItemAdminController implements Initializable {
             idCheck.setText("");
             idValid = true;
         }else {
-            idCheck.setText("Invalid item id");
+            idCheck.setText("Invalid id");
         }
         //Check title
         if(!title.getText().trim().isEmpty()) {
@@ -181,8 +188,20 @@ public class AddItemAdminController implements Initializable {
             }else {
                 i.setGenre(genre.getValue());
             }
-            i.printItem();
-            itemslistA.add(i);
+            for (int itr = 0; itr < itemslistA.size(); itr++){
+                if(itemslistA.get(itr).equals(editItem)) {
+                    itemslistA.set(itr, i);
+                }
+            }
+
+            for(int itr = 0; itr < customersA.size(); itr++){
+                for(Item item:customersA.get(itr).getRent_items()){
+                    if(item.equals(editItem)){
+                       customersA.get(itr).getRent_items().set(customersA.get(itr).getRent_items().indexOf(item), i);
+                    }
+
+                }
+            }
             closeButtonAction();
         }
 
@@ -212,9 +231,9 @@ public class AddItemAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         rentType.getItems().addAll(
-          "Record",
-          "DVD",
-          "Game"
+                "Record",
+                "DVD",
+                "Game"
         );
         rentType.setOnAction(e ->{
             if(rentType.getValue().contentEquals("Game")) {
@@ -235,5 +254,15 @@ public class AddItemAdminController implements Initializable {
                 "Drama",
                 "Comedy"
         );
+        Platform.runLater(() ->{
+            id.setText(editItem.getID());
+            title.setText(editItem.getTitle());
+            rentType.setValue(editItem.getRent_type());
+            loanType.setValue(editItem.getLoan_type());
+            copies.setText(Integer.toString(editItem.getNo_of_copies()));
+            fee.setText(Float.toString(editItem.getRent_fee()));
+            genre.setValue(editItem.getGenre());
+
+        });
     }
 }

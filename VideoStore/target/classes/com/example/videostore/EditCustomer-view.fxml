@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<DialogPane prefHeight="346.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.videostore.AddItemAdminController">
+<DialogPane prefHeight="346.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.videostore.EditCustomerAdminController">
    <content>
       <GridPane alignment="CENTER">
         <columnConstraints>
@@ -31,28 +31,28 @@
         </rowConstraints>
          <children>
             <Label text="ID" GridPane.halignment="CENTER" />
-            <Label text="Rent Type" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label text="Title" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Label text="Loan Type" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Label fx:id="genreLabel" text="Genre" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-            <Label text="Rent Fee" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Label text="No. of copies" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Label text="Name" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label text="Address" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label text="Phone" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Label text="Customer Type" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Label text="Username" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Label fx:id="genreLabel" text="Password" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
             <TextField fx:id="id" GridPane.columnIndex="1" />
-            <TextField fx:id="title" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="copies" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="fee" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ComboBox fx:id="genre" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ComboBox fx:id="loanType" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox fx:id="rentType" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="phone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="customerType" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="address" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Button fx:id="confirm" mnemonicParsing="false" onAction="#confirm" text="Confirm" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
             <Button fx:id="cancel" mnemonicParsing="false" onAction="#closeButtonAction" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
             <Label fx:id="idCheck" GridPane.columnIndex="2" />
-            <Label fx:id="titleCheck" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="rentTypeCheck" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label fx:id="loanTypeCheck" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label fx:id="copiesCheck" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Label fx:id="feeCheck" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Label fx:id="genreCheck" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Label fx:id="nameCheck" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="addressCheck" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="phoneCheck" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label fx:id="customerTypeCheck" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label fx:id="usernameCheck" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label fx:id="passwordCheck" GridPane.columnIndex="2" GridPane.rowIndex="6" />
          </children>
       </GridPane>
    </content>

@@ -90,6 +90,9 @@ public class Customer {
         Rent_items = rent_items;
     }
 
+    public Customer(){
+    }
+
     public Customer(String ID, String name, String address, String phone, int number_of_rentals, String customer_type, String username, String password) {
         this.ID = ID;
         Name = name;

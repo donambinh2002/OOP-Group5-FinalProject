@@ -83,6 +83,10 @@ public class Item {
 
     }
 
+    public Item() {
+
+    }
+
     public static ArrayList<Item> readItem(String filename) throws FileNotFoundException {
         File item = new File(filename);
         Scanner sc = new Scanner(item);
