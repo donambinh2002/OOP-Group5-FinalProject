@@ -44,10 +44,15 @@ public class CustomerViewController implements Initializable {
     String test;
 
     public void receiveRentedItem(Item renteditem) throws IOException {
-        customers.get(itr).addRental(renteditem);
-        saveCustomerData(customers);
-        saveItemData(itemslist);
-        updateRental();
+        if(customers.get(itr).checkAddRental(renteditem)) {
+            customers.get(itr).addRental(renteditem);
+            saveCustomerData(customers);
+            saveItemData(itemslist);
+            updateRental();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Guest accounts cannot rent 2-day items");
+            alert.show();
+        }
 
     }
 
@@ -84,6 +89,7 @@ public class CustomerViewController implements Initializable {
                 rentTable.getSelectionModel().getSelectedItems()
         );
         customers.get(itr).removeRental(selectItem);
+        customers.get(itr).autoPromote();
         customers.get(itr).printRental();
         saveCustomerData(customers);
         saveItemData(itemslist);

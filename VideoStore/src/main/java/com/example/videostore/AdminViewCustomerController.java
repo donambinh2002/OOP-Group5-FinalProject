@@ -3,6 +3,7 @@ package com.example.videostore;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,6 +58,12 @@ public class AdminViewCustomerController implements Initializable {
 
     @FXML
     private TableColumn<Customer, String> password;
+    @FXML
+    private ComboBox<String> searchBox;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private ComboBox<String> customerGroup;
 
 
     static ArrayList<Item> itemslistA;
@@ -82,6 +89,8 @@ public class AdminViewCustomerController implements Initializable {
         customerType.setCellValueFactory(new PropertyValueFactory<>("Customer_type"));
         username.setCellValueFactory(new PropertyValueFactory<>("Username"));
         password.setCellValueFactory(new PropertyValueFactory<>("Password"));
+
+
 
         customerTableView.setItems(getCustomer());
 
@@ -155,6 +164,17 @@ public class AdminViewCustomerController implements Initializable {
         saveItemData(itemslistA);
     }
 
+    @FXML
+    private void promoteCustomer(){
+        Customer selectCustomer = customerTableView.getSelectionModel().getSelectedItem();
+        for (int i =0; i < customersA.size(); i++){
+            if(customersA.get(i).equals(selectCustomer)){
+                customersA.get(i).promoteCustomer();
+            }
+        }
+        refreshCustomer();
+    }
+
 
     @FXML
     public void switchItem(ActionEvent event) throws IOException {
@@ -176,8 +196,63 @@ public class AdminViewCustomerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        searchBox.getItems().addAll(
+                "ID",
+                "Name",
+                "Customer Type"
+        );
+        customerGroup.getItems().addAll(
+                "Guest",
+                "Regular",
+                "VIP"
+        );
+        customerGroup.setVisible(false);
+
         Platform.runLater(() ->{
             refreshCustomer();
+            FilteredList<Customer> searchCustomer = new FilteredList(getCustomer(), p -> true);//Pass the data to a filtered list
+            customerTableView.setItems(searchCustomer);//Set the table's items using the filtered list
+            customerTableView.getItems();
+            searchField.textProperty().addListener((obs, oldValue, newValue) -> {
+                switch (searchBox.getValue())//Switch on choiceBox value
+                {
+                    case "ID":
+                        searchCustomer.setPredicate(p -> p.getID().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by first name
+                        break;
+                    case "Name":
+                        searchCustomer.setPredicate(p -> p.getName().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by last name
+                        break;
+                }
+            });
+
+            customerGroup.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newValue) -> {
+                switch (searchBox.getValue()){
+                    case "Customer Type":
+                        searchCustomer.setPredicate(p -> p.getCustomer_type().toLowerCase().contains(newValue.toLowerCase().trim()));
+                }
+
+
+            });
+
+
+
+            searchBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
+                    -> {//reset table and textfield when new choice is selected
+                if (newVal == "ID" || newVal == "Name" ) {
+                    customerGroup.setVisible(false);
+                    searchCustomer.setPredicate(p -> p.getCustomer_type().toLowerCase().contains(""));
+                    searchField.setText("");
+                    searchField.setVisible(true);
+                }
+                if( newVal == "Customer Type"){
+                    customerGroup.setVisible(true);
+                    searchCustomer.setPredicate(p -> p.getCustomer_type().toLowerCase().contains(""));
+                    customerGroup.setValue("");
+                    searchField.setText("");
+                    searchField.setVisible(false);
+                }
+            });
+
         });
     }
 }
