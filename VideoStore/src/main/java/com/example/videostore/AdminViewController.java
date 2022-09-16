@@ -119,7 +119,7 @@ public class AdminViewController implements Initializable {
     private void editItem() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("EditItem-view.fxml"));
-        DialogPane addItem = fxmlLoader.load();
+        DialogPane editItem = fxmlLoader.load();
 
         EditItemAdminController editItemController = fxmlLoader.getController();
         editItemController.setItemdataA(itemslistA);
@@ -127,12 +127,13 @@ public class AdminViewController implements Initializable {
         editItemController.receiveItemToEdit(itemTableviewA.getSelectionModel().getSelectedItem());
 
         Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(addItem);
+        dialog.setDialogPane(editItem);
         dialog.setTitle("Edit item");
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
         refreshItem();
         saveItemData(itemslistA);
+        saveCustomerData(customersA);
     }
 
     @FXML

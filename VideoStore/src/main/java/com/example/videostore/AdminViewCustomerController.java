@@ -101,15 +101,15 @@ public class AdminViewCustomerController implements Initializable {
     private void addCustomer() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("AddCustomer-view.fxml"));
-        DialogPane addItem = fxmlLoader.load();
+        DialogPane addCustomer = fxmlLoader.load();
 
         AddCustomerAdminController addcustomercontroller = fxmlLoader.getController();
         addcustomercontroller.setItemdataA(itemslistA);
         addcustomercontroller.setCustomerdataA(customersA);
 
         Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(addItem);
-        dialog.setTitle("Add item");
+        dialog.setDialogPane(addCustomer);
+        dialog.setTitle("Add customer");
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
         refreshCustomer();
@@ -119,21 +119,22 @@ public class AdminViewCustomerController implements Initializable {
     @FXML
     private void editCustomer() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("EditItem-view.fxml"));
-        DialogPane addItem = fxmlLoader.load();
+        fxmlLoader.setLocation(getClass().getResource("EditCustomer-view.fxml"));
+        DialogPane editcustomer = fxmlLoader.load();
 
-        EditItemAdminController editItemController = fxmlLoader.getController();
-        editItemController.setItemdataA(itemslistA);
-        editItemController.setCustomerdataA(customersA);
+        EditCustomerAdminController editCustomerController = fxmlLoader.getController();
+        editCustomerController.setItemdataA(itemslistA);
+        editCustomerController.setCustomerdataA(customersA);
+        editCustomerController.receiveCustomerToEdit(customerTableView.getSelectionModel().getSelectedItem());
 
 
         Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(addItem);
-        dialog.setTitle("Edit item");
+        dialog.setDialogPane(editcustomer);
+        dialog.setTitle("Edit customer");
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
         refreshCustomer();
-        saveItemData(itemslistA);
+        saveCustomerData(customersA);
     }
 
     @FXML
