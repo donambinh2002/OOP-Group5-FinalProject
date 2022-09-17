@@ -135,12 +135,12 @@ public class AddItemAdminController implements Initializable {
             copiesCheck.setText("Invalid number of copies");
         }
         if(copiesValid){
-            if(Integer.parseInt(copies.getText()) > 0){
+            if(Integer.parseInt(copies.getText()) > -1){
                 copiesCheck.setText("");
                 copiesValid = true;
             }else {
                 copiesValid = false;
-                copiesCheck.setText("Copies must be greater than 0");
+                copiesCheck.setText("Copies cannot be negative");
             }
         }
         //Check fee
